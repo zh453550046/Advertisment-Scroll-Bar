@@ -148,6 +148,15 @@ public class MyAdvertisment extends RelativeLayout {
     }
 
     /**
+     * 设置滚动点的间隔高度,必须要在设置滚动点之后调用
+     *
+     * @param height
+     */
+    public void setScrollHeight(float height) {
+        autoScrollView.setHeight(height);
+    }
+
+    /**
      * 开启自动滚动
      *
      * @param activity 调用的Activity实例
@@ -207,7 +216,17 @@ public class MyAdvertisment extends RelativeLayout {
             this.list.clear();
             for (int i = 0; i < list.size(); i++) {
                 ImageView imageView = new ImageView(context);
+                imageView.setScaleType(ImageView.ScaleType.CENTER_CROP);
                 imageView.setImageResource(list.get(i));
+                final int position = i;
+                imageView.setOnClickListener(new OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (myOnPageClickListener != null) {
+                            myOnPageClickListener.onPageClick(position);
+                        }
+                    }
+                });
                 this.list.add(imageView);
             }
         }
@@ -265,4 +284,13 @@ public class MyAdvertisment extends RelativeLayout {
         }
     }
 
+    private OnPageClickListener myOnPageClickListener;
+
+    public void setOnPageClickListener(OnPageClickListener onPageClickListener) {
+        myOnPageClickListener = onPageClickListener;
+    }
+
+    public interface OnPageClickListener {
+        void onPageClick(int position);
+    }
 }

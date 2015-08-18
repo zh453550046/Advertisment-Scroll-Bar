@@ -184,6 +184,15 @@ public class AutoScrollView extends View {
     }
 
     /**
+     * 设置滚动点的间隔高度,在画图时间隔宽度由height控制
+     *
+     * @param height
+     */
+    public void setHeight(float height) {
+        this.height = height;
+    }
+
+    /**
      * 设置滚动点个数
      *
      * @param size
